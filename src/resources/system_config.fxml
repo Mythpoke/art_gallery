@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artGallery.SystemConfigController" spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="System Configuration" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Opening Hours:"/>
+        <TextField fx:id="openingHoursField" promptText="e.g. 09:00-17:00"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Ticket Price (Normal):"/>
+        <TextField fx:id="ticketPriceNormalField" promptText="Enter normal price"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Ticket Price (Discounted):"/>
+        <TextField fx:id="ticketPriceDiscountedField" promptText="Enter discounted price"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Ticket Price (Group):"/>
+        <TextField fx:id="ticketPriceGroupField" promptText="Enter group price"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Save Changes" onAction="#saveChanges"/>
+        <Button text="Backup Database" onAction="#backupDatabase"/>
+        <Button text="Restore Database" onAction="#restoreDatabase"/>
+        <Button text="Back" onAction="#goBack"/>
+    </HBox>
+</VBox>
