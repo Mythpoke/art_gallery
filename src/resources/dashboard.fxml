@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="artgallery.DashboardController" style="-fx-background-color: linear-gradient(to bottom, #3b5998, #192f6a); -fx-padding: 50;">
+    <VBox spacing="40" alignment="CENTER">
+        <Label text="Admin Dashboard" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+        <VBox spacing="20" alignment="CENTER">
+            <Button fx:id="userManagementButton" text="User Management" onAction="#openUserManagement"
+                    style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: #0078d7; -fx-background-radius: 15; -fx-padding: 15 30;"/>
+            <Button fx:id="exhibitManagementButton" text="Exhibit Management" onAction="#openExhibitManagement"
+                    style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: #0078d7; -fx-background-radius: 15; -fx-padding: 15 30;"/>
+            <Button fx:id="exhibitionManagementButton" text="Exhibition Management" onAction="#openExhibitionManagement"
+                    style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: #0078d7; -fx-background-radius: 15; -fx-padding: 15 30;"/>
+            <Button fx:id="reportManagementButton" text="Report Management" onAction="#openReportManagement"
+                    style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: #0078d7; -fx-background-radius: 15; -fx-padding: 15 30;"/>
+            <Button fx:id="staffManagementButton" text="Staff Management" onAction="#openStaffManagement"
+                    style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: #0078d7; -fx-background-radius: 15; -fx-padding: 15 30;"/>
+            <Button fx:id="tourManagementButton" text="Tour Management" onAction="#openTourManagement"
+                    style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: #0078d7; -fx-background-radius: 15; -fx-padding: 15 30;"/>
+            <Button fx:id="systemConfigButton" text="System Configuration" onAction="#openSystemConfig"
+                    style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: #0078d7; -fx-background-radius: 15; -fx-padding: 15 30;"/>
+        </VBox>
+    </VBox>
+</StackPane>

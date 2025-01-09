@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artgallery.LoginController" style="-fx-padding: 30;">
+    <Label text="Art Gallery Login" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <TextField fx:id="usernameField" promptText="Username" prefHeight="40" prefWidth="300"
+               style="-fx-font-size: 16px;"/>
+    <PasswordField fx:id="passwordField" promptText="Password" prefHeight="40" prefWidth="300"
+                   style="-fx-font-size: 16px;"/>
+    <Button text="Login" onAction="#handleLogin" prefHeight="50" prefWidth="150"
+            style="-fx-font-size: 18px; -fx-background-color: #0078d7; -fx-text-fill: white;"/>
+</VBox>

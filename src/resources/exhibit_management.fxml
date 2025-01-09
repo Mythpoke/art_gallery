@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artgallery.ExhibitManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 30;">
+    <Button text="Back" onAction="#goBack" style="-fx-font-size: 16px; -fx-background-color: #d9534f; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 10;"/>
+    <Label text="Exhibit Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <TableView fx:id="exhibitTable" prefWidth="600" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="100"/>
+            <TableColumn fx:id="nameColumn" text="Name" prefWidth="200"/>
+            <TableColumn fx:id="artistColumn" text="Artist" prefWidth="200"/>
+            <TableColumn fx:id="statusColumn" text="Status" prefWidth="100"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10">
+        <TextField fx:id="nameField" promptText="Name" prefWidth="200"/>
+        <TextField fx:id="artistField" promptText="Artist" prefWidth="200"/>
+        <ComboBox fx:id="statusComboBox" promptText="Select Status" prefWidth="200"/>
+    </HBox>
+    <HBox spacing="10">
+        <Button text="Add Exhibit" onAction="#addExhibit"/>
+        <Button text="Update Exhibit" onAction="#updateExhibit"/>
+        <Button text="Delete Exhibit" onAction="#deleteExhibit"/>
+    </HBox>
+</VBox>

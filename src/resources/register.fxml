@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artgallery.RegisterController">
+    <Label text="User Registration" style="-fx-font-size: 18px;"/>
+    <TextField fx:id="usernameField" promptText="Enter Username"/>
+    <PasswordField fx:id="passwordField" promptText="Enter Password"/>
+    <TextField fx:id="roleField" promptText="Enter Role (admin, curator, etc.)"/>
+    <Button text="Register" onAction="#registerUser"/>
+    <Button text="Back to Login" onAction="#goBackToLogin"/>
+</VBox>

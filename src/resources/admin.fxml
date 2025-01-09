@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artgallery.AdminController" spacing="10" alignment="CENTER">
+    <Label text="Admin Panel - User Management" style="-fx-font-size: 18px;"/>
+    <TableView fx:id="userTable" prefWidth="600" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID"/>
+            <TableColumn fx:id="usernameColumn" text="Username"/>
+            <TableColumn fx:id="roleColumn" text="Role"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10">
+        <TextField fx:id="usernameField" promptText="Username"/>
+        <TextField fx:id="passwordField" promptText="Password"/>
+        <TextField fx:id="roleField" promptText="Role (admin, curator, etc.)"/>
+    </HBox>
+    <HBox spacing="10">
+        <Button text="Add User" onAction="#addUser"/>
+        <Button text="Delete User" onAction="#deleteUser"/>
+    </HBox>
+</VBox>

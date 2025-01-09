@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artgallery.ReportManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 30;">
+    <Button text="Back" onAction="#goBack" style="-fx-font-size: 16px; -fx-background-color: #d9534f; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 10;"/>
+    <Label text="Report Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <ComboBox fx:id="reportTypeComboBox" promptText="Select Report Type" prefWidth="300"/>
+    <Button text="Generate Report" onAction="#generateReport"/>
+    <TableView fx:id="reportTable" prefWidth="600" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="column1" text="name" prefWidth="200"/>
+            <TableColumn fx:id="column2" text="artist" prefWidth="200"/>
+            <TableColumn fx:id="column3" text="exhibition" prefWidth="200"/>
+        </columns>
+    </TableView>
+</VBox>
