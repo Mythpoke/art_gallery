@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="artgallery.ReportManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 30;">
+      fx:controller="artGallery.ReportManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 30;">
     <Button text="Back" onAction="#goBack" style="-fx-font-size: 16px; -fx-background-color: #d9534f; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 10;"/>
     <Label text="Report Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
     <ComboBox fx:id="reportTypeComboBox" promptText="Select Report Type" prefWidth="300"/>

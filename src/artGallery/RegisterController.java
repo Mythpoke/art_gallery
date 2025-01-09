@@ -1,4 +1,4 @@
-package artgallery;
+package artGallery;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

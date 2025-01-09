@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="artgallery.AdminController" spacing="10" alignment="CENTER">
+      fx:controller="artGallery.AdminController" spacing="10" alignment="CENTER">
     <Label text="Admin Panel - User Management" style="-fx-font-size: 18px;"/>
     <TableView fx:id="userTable" prefWidth="600" prefHeight="300">
         <columns>

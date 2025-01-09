@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="artgallery.ExhibitionManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 30;">
+      fx:controller="artGallery.ExhibitionManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 30;">
     <Button text="Back" onAction="#goBack" style="-fx-font-size: 16px; -fx-background-color: #d9534f; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 10;"/>
     <Label text="Exhibition Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
     <TableView fx:id="exhibitionTable" prefWidth="700" prefHeight="300">

@@ -1,4 +1,4 @@
-package artgallery;
+package artGallery;
 
 public class Report {
     private String column1;

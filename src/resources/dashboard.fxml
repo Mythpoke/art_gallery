@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-           fx:controller="artgallery.DashboardController" style="-fx-background-color: linear-gradient(to bottom, #3b5998, #192f6a); -fx-padding: 50;">
+           fx:controller="artGallery.DashboardController" style="-fx-background-color: linear-gradient(to bottom, #3b5998, #192f6a); -fx-padding: 50;">
     <VBox spacing="40" alignment="CENTER">
         <Label text="Admin Dashboard" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white;"/>
         <VBox spacing="20" alignment="CENTER">

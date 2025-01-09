@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="artgallery.RegisterController">
+      fx:controller="artGallery.RegisterController">
     <Label text="User Registration" style="-fx-font-size: 18px;"/>
     <TextField fx:id="usernameField" promptText="Enter Username"/>
     <PasswordField fx:id="passwordField" promptText="Enter Password"/>

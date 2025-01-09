@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="artgallery.LoginController" style="-fx-padding: 30;">
+      fx:controller="artGallery.LoginController" style="-fx-padding: 30;">
     <Label text="Art Gallery Login" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
     <TextField fx:id="usernameField" promptText="Username" prefHeight="40" prefWidth="300"
                style="-fx-font-size: 16px;"/>

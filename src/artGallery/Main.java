@@ -1,4 +1,4 @@
-package artgallery;
+package artGallery;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

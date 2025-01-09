@@ -1,4 +1,4 @@
-package artgallery;
+package artGallery;
 
 public class Exhibit {
     private int id;
