@@ -23,16 +23,10 @@ public class ExhibitionManagementController {
     private TableColumn<Exhibition, String> titleColumn;
 
     @FXML
-    private TableColumn<Exhibition, String> startDateColumn;
+    private TableColumn<Exhibition, String> exhibitNameColumn;
 
     @FXML
-    private TableColumn<Exhibition, String> startTimeColumn;
-
-    @FXML
-    private TableColumn<Exhibition, String> endDateColumn;
-
-    @FXML
-    private TableColumn<Exhibition, String> endTimeColumn;
+    private TableColumn<Exhibition, String> artistColumn;
 
     @FXML
     private TextField titleField;
@@ -49,35 +43,41 @@ public class ExhibitionManagementController {
     @FXML
     private TextField endTimeField;
 
+    @FXML
+    private ComboBox<String> availableExhibitsComboBox;
+
     private ObservableList<Exhibition> exhibitionList = FXCollections.observableArrayList();
+    private ObservableList<String> availableExhibitsList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        exhibitNameColumn.setCellValueFactory(new PropertyValueFactory<>("exhibitName"));
+        artistColumn.setCellValueFactory(new PropertyValueFactory<>("artist"));
 
         loadExhibitions();
+        loadAvailableExhibits();
     }
 
     private void loadExhibitions() {
         exhibitionList.clear();
         try (Connection conn = DatabaseHandler.getConnection()) {
-            String query = "SELECT * FROM Exhibitions";
+            String query = "SELECT ex.id AS exhibition_id, ex.title AS exhibition_title, " +
+                    "       COALESCE(e.name, 'No Exhibit') AS exhibit_name, " +
+                    "       COALESCE(e.artist, 'Unknown') AS artist " +
+                    "FROM Exhibitions ex " +
+                    "LEFT JOIN Exhibit_Exhibition ee ON ex.id = ee.exhibition_id " +
+                    "LEFT JOIN Exhibits e ON ee.exhibit_id = e.id";
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 exhibitionList.add(new Exhibition(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("start_date"),
-                        rs.getString("start_time"),
-                        rs.getString("end_date"),
-                        rs.getString("end_time")
+                        rs.getInt("exhibition_id"),
+                        rs.getString("exhibition_title"),
+                        rs.getString("exhibit_name"),
+                        rs.getString("artist")
                 ));
             }
         } catch (Exception e) {
@@ -85,6 +85,25 @@ public class ExhibitionManagementController {
         }
 
         exhibitionTable.setItems(exhibitionList);
+    }
+
+
+    private void loadAvailableExhibits() {
+        availableExhibitsList.clear();
+        try (Connection conn = DatabaseHandler.getConnection()) {
+            String query = "SELECT name FROM Exhibits WHERE status = 'on_display' " +
+                    "AND id NOT IN (SELECT exhibit_id FROM Exhibit_Exhibition)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                availableExhibitsList.add(rs.getString("name"));
+            }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load available exhibits: " + e.getMessage());
+        }
+
+        availableExhibitsComboBox.setItems(availableExhibitsList);
     }
 
     @FXML
@@ -172,6 +191,32 @@ public class ExhibitionManagementController {
             loadExhibitions();
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete exhibition: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void assignExhibit() {
+        Exhibition selectedExhibition = exhibitionTable.getSelectionModel().getSelectedItem();
+        String selectedExhibit = availableExhibitsComboBox.getValue();
+
+        if (selectedExhibition == null || selectedExhibit == null) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "Please select an exhibition and an exhibit.");
+            return;
+        }
+
+        try (Connection conn = DatabaseHandler.getConnection()) {
+            String query = "INSERT INTO Exhibit_Exhibition (exhibit_id, exhibition_id) " +
+                    "SELECT e.id, ? FROM Exhibits e WHERE e.name = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, selectedExhibition.getId());
+            stmt.setString(2, selectedExhibit);
+            stmt.executeUpdate();
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Exhibit assigned successfully.");
+            loadExhibitions();
+            loadAvailableExhibits();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to assign exhibit: " + e.getMessage());
         }
     }
 

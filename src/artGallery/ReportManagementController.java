@@ -5,8 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +37,6 @@ public class ReportManagementController {
     private void initialize() {
         reportTypeComboBox.setItems(FXCollections.observableArrayList(
                 "Exhibits on Exhibition",
-                "Exhibit Maintenance Status",
                 "Ticket Sales",
                 "Maintenance Schedule"
         ));
@@ -49,12 +51,12 @@ public class ReportManagementController {
         String selectedReport = reportTypeComboBox.getValue();
 
         if (selectedReport == null) {
-            System.out.println("No report type selected.");
             showAlert(Alert.AlertType.WARNING, "Validation Error", "Please select a report type.");
             return;
         }
-        System.out.println("Generating report for: " + selectedReport);
+
         reportData.clear();
+
         try (Connection conn = DatabaseHandler.getConnection()) {
             String query = getQueryForReport(selectedReport);
             if (query == null) {
@@ -68,18 +70,12 @@ public class ReportManagementController {
             while (rs.next()) {
                 reportData.add(new Report(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
-            System.out.println("Report data loaded successfully.");
+
             reportTable.setItems(reportData);
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to generate report: " + e.getMessage());
         }
     }
-    @FXML
-    private void goBack() {
-        Stage stage = (Stage) reportTable.getScene().getWindow();
-        stage.close();
-    }
-
 
     private String getQueryForReport(String reportType) {
         switch (reportType) {
@@ -90,28 +86,66 @@ public class ReportManagementController {
                         "LEFT JOIN Exhibitions ex ON ee.exhibition_id = ex.id " +
                         "WHERE e.status = 'on_display'";
 
-            case "Exhibit Maintenance Status":
-                return "SELECT e.name, m.maintenance_date, m.details FROM Exhibits e " +
-                        "JOIN Maintenance m ON e.id = m.exhibit_id";
-
             case "Ticket Sales":
-                return "SELECT ex.title, COUNT(t.id) AS tickets_sold, SUM(t.price) AS total_revenue FROM Tickets t " +
-                        "JOIN Exhibitions ex ON t.exhibition_id = ex.id GROUP BY ex.title";
+                return "SELECT ex.title, COUNT(t.id) AS tickets_sold, COALESCE(SUM(t.price), 0) AS total_revenue " +
+                        "FROM Tickets t " +
+                        "JOIN Exhibitions ex ON t.exhibition_id = ex.id " +
+                        "GROUP BY ex.title";
 
             case "Maintenance Schedule":
                 return "SELECT e.name, m.maintenance_date, m.details FROM Maintenance m " +
-                        "JOIN Exhibits e ON m.exhibit_id = e.id";
+                        "JOIN Exhibits e ON m.exhibit_id = e.id " +
+                        "WHERE m.maintenance_date >= CURDATE() " +
+                        "ORDER BY m.maintenance_date";
 
             default:
                 return null;
         }
     }
 
+    @FXML
+    private void exportToCSV() {
+        if (reportData.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Export Error", "No data available to export.");
+            return;
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Report");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        Stage stage = (Stage) reportTable.getScene().getWindow();
+        java.io.File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                // Write header
+                writer.println("Column 1,Column 2,Column 3");
+
+                // Write data
+                for (Report report : reportData) {
+                    writer.printf("%s,%s,%s%n",
+                            report.getColumn1(),
+                            report.getColumn2(),
+                            report.getColumn3());
+                }
+
+                showAlert(Alert.AlertType.INFORMATION, "Export Successful", "Report exported to " + file.getAbsolutePath());
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Export Error", "Failed to export report: " + e.getMessage());
+            }
+        }
+    }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void goBack() {
+        Stage stage = (Stage) reportTable.getScene().getWindow();
+        stage.close();
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artGallery.StaffManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Staff Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="staffTable" prefWidth="700" prefHeight="400">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn" prefWidth="50"/>
+            <TableColumn text="Name" fx:id="nameColumn" prefWidth="150"/>
+            <TableColumn text="Position" fx:id="positionColumn" prefWidth="150"/>
+            <TableColumn text="Hire Date" fx:id="hireDateColumn" prefWidth="150"/>
+            <TableColumn text="Salary" fx:id="salaryColumn" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Label text="Name:"/>
+        <TextField fx:id="nameField" promptText="Enter name"/>
+        <Label text="Position:"/>
+        <TextField fx:id="positionField" promptText="Enter position"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Hire Date:"/>
+        <DatePicker fx:id="hireDatePicker"/>
+        <Label text="Salary:"/>
+        <TextField fx:id="salaryField" promptText="Enter salary"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add" onAction="#addStaff"/>
+        <Button text="Update" onAction="#updateStaff"/>
+        <Button text="Delete" onAction="#deleteStaff"/>
+        <Button text="Back" onAction="#goBack"/>
+    </HBox>
+</VBox>

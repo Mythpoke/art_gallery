@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="artGallery.TourManagementController" spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Tour Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="tourTable" prefWidth="700" prefHeight="400">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn" prefWidth="50"/>
+            <TableColumn text="Guide Name" fx:id="guideColumn" prefWidth="200"/>
+            <TableColumn text="Tour Date" fx:id="dateColumn" prefWidth="150"/>
+            <TableColumn text="Group Size" fx:id="groupSizeColumn" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Label text="Guide Name:"/>
+        <TextField fx:id="guideField" promptText="Enter guide name"/>
+        <Label text="Tour Date:"/>
+        <DatePicker fx:id="tourDatePicker"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Group Size:"/>
+        <TextField fx:id="groupSizeField" promptText="Enter group size"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add" onAction="#addTour"/>
+        <Button text="Update" onAction="#updateTour"/>
+        <Button text="Delete" onAction="#deleteTour"/>
+        <Button text="Back" onAction="#goBack"/>
+    </HBox>
+</VBox>
