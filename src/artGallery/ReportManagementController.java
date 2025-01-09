@@ -1,4 +1,4 @@
-package artgallery;
+package artGallery;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
